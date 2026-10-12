@@ -4,7 +4,7 @@ A public, black-and-white browser demo for a Database Systems course project.
 
 Choose Customer, Partners or Admin in the header. Customers browse restaurants and see their own orders. Partners see only their assigned deliveries. Admin manages menus, preparation and partner assignment. Meera Shah has both customer and delivery partner roles.
 
-Customer view has an **Add customer** button; Partners view has **Add delivery partner**. Create a named person or add a role to an existing person. IDs identify people even when names match. This is a demonstration role selector without login, so it does not enforce access permissions.
+Customer view has an **Add customer** button; Partners view has **Add delivery partner**. The form lets you select Customer, Delivery partner or Both, create a named person, or add roles to an existing person. Both uses one ID across the two roles. IDs identify people even when names match. This is a demonstration role selector without login, so it does not enforce access permissions.
 
 **This site uses fictional sample data stored in your browser's localStorage.** It does not connect to Oracle or a shared backend, and it does not process real payments. Changes made by one visitor do not appear in another visitor's browser.
 

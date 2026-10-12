@@ -1,4 +1,4 @@
-# Savour
+# Savour DELIVERY
 
 The Add user form offers Customer, Delivery partner or Both. Both stores one APP_USER linked to CUSTOMER and DELIVERY_PARTNER, preserving the overlapping EER specialization. Transport is required for delivery roles.
 
@@ -10,7 +10,7 @@ BACSE202 Database Systems course project. A simple black-and-white browser appli
 
 ## Shareable browser demo
 
-[Open the public demo](https://aaron-rby.github.io/food-delivery-demo/)
+[Open the public demo](https://aaron-rby.github.io/savour-delivery/)
 
 Friends can try the interface without installing Java or Oracle. This separate public demo uses fictional records saved only in each visitor's browser. It has no shared database or real payments. This full project repository remains private.
 

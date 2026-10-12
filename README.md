@@ -20,6 +20,8 @@ Open http://127.0.0.1:8790. There are no frontend build dependencies.
 
 ## Demonstration
 
+Admin's **Menu management** has a restaurant dropdown. Select a restaurant to edit only its dishes. **Add food** creates a named dish with a category, price and availability. **Add restaurant** collects its name, address, city, postal code and optional phone, then selects it so you can add food. Existing visitors receive six extra fictional customers and ten extra dishes without losing saved orders or edited prices.
+
 1. Choose Asha Rao and Campus Kitchen.
 2. Add two Veg Rice and one Juice. The total is INR 350 including the delivery fee.
 3. Enter a fictional destination and place the order.

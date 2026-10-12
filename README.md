@@ -6,7 +6,9 @@ Choose Customer, Partners or Admin in the header. Customers browse restaurants a
 
 Customer view has an **Add customer** button; Partners view has **Add delivery partner**. The form lets you select Customer, Delivery partner or Both, create a named person, or add roles to an existing person. Both uses one ID across the two roles. IDs identify people even when names match. This is a demonstration role selector without login, so it does not enforce access permissions.
 
-**This site uses fictional sample data stored in your browser's localStorage.** It does not connect to Oracle or a shared backend, and it does not process real payments. Changes made by one visitor do not appear in another visitor's browser.
+**Shared demonstration:** `backend-config.js` points to a temporary HTTPS tunnel to the local Java/Oracle backend. Visitors share database records while the computer, Oracle, Java server and tunnel are running. Views refresh every five seconds when no form is being edited. There is no login: roles are demonstration filters, not permissions. Use fictional information and simulated payments only.
+
+When the shared server is offline, saving is disabled and the UI retries every five seconds. Existing browser-only orders are not automatically uploaded. Clearing the API URL restores the separate localStorage demo. A restarted Quick Tunnel receives a new URL; update backend-config.js and publish it.
 
 The full Java/JDBC/Oracle project remains in a separate private repository. This public repository contains only the demo's HTML, CSS and JavaScript.
 

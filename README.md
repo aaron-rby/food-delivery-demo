@@ -1,4 +1,4 @@
-# Food Delivery Demo
+# Savour
 
 A public, black-and-white browser demo for a Database Systems course project.
 

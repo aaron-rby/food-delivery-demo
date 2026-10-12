@@ -1,0 +1,30 @@
+-- Run once after the recovered Phase 1 seed. All rows are fictional.
+WHENEVER SQLERROR EXIT SQL.SQLCODE ROLLBACK
+INSERT INTO app_user VALUES (3,'Meera Shah','meera@example.com','9000000003');
+INSERT INTO app_user VALUES (4,'Dev Patel','dev@example.com','9000000004');
+INSERT INTO customer VALUES (3,TIMESTAMP '2026-10-06 09:00:00');
+INSERT INTO customer VALUES (4,TIMESTAMP '2026-10-06 09:30:00');
+INSERT INTO delivery_partner VALUES (3,'BICYCLE','AVAILABLE');
+INSERT INTO restaurant VALUES (20,'Garden Cafe','8 Lake Road','Chennai','600002','9000000020');
+INSERT INTO menu_item VALUES (13,10,'Paneer Wrap','Main Course',150,1);
+INSERT INTO menu_item VALUES (21,20,'Idli','Breakfast',60,1);
+INSERT INTO menu_item VALUES (22,20,'Coffee','Beverage',40,1);
+INSERT INTO menu_item VALUES (23,20,'Dosa','Breakfast',90,0);
+INSERT INTO food_order VALUES (1002,3,20,TIMESTAMP '2026-10-12 09:00:00','PLACED','Hostel Gate 1','Chennai','600001',20);
+INSERT INTO order_item VALUES (1002,21,2,60);
+INSERT INTO order_item VALUES (1002,22,1,40);
+INSERT INTO payment VALUES (5002,1002,'CASH',180,'PENDING',NULL);
+INSERT INTO food_order VALUES (1003,4,10,TIMESTAMP '2026-10-12 10:00:00','PREPARING','Library Gate','Chennai','600001',30);
+INSERT INTO order_item VALUES (1003,13,1,150);
+INSERT INTO payment VALUES (5003,1003,'ONLINE',180,'SUCCESS',TIMESTAMP '2026-10-12 10:01:00');
+-- Partner 2 has more than one historical assignment.
+INSERT INTO food_order VALUES (1004,3,20,TIMESTAMP '2026-10-11 12:00:00','DELIVERED','Hostel Gate 1','Chennai','600001',20);
+INSERT INTO order_item VALUES (1004,21,1,60);
+INSERT INTO order_item VALUES (1004,22,2,40);
+INSERT INTO payment VALUES (5004,1004,'CASH',160,'SUCCESS',TIMESTAMP '2026-10-11 12:40:00');
+INSERT INTO delivery VALUES (1004,2,TIMESTAMP '2026-10-11 12:10:00',TIMESTAMP '2026-10-11 12:20:00',TIMESTAMP '2026-10-11 12:40:00');
+COMMIT;
+CREATE SEQUENCE food_order_seq START WITH 2000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE payment_seq START WITH 6000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE app_user_seq START WITH 1000 INCREMENT BY 1 NOCACHE;
+-- Sequences add identifiers without changing the nine normalized tables.

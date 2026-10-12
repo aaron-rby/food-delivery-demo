@@ -1,0 +1,463 @@
+
+User created.
+
+
+Grant succeeded.
+
+
+CONNECTED_ACCOUNT
+------------------------------
+FOOD_PROJECT
+
+
+PL/SQL procedure successfully completed.
+
+STEP 1: Create all nine tables
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+STEP 2: Insert fictional sample data
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+STEP 3: Verify tables, constraints and totals
+
+TABLE_NAME
+------------------------------
+APP_USER
+CUSTOMER
+DELIVERY
+DELIVERY_PARTNER
+FOOD_ORDER
+MENU_ITEM
+ORDER_ITEM
+PAYMENT
+RESTAURANT
+
+9 rows selected.
+
+
+TABLE_NAME		       CONSTRAINT_NAME		      C STATUS
+------------------------------ ------------------------------ - --------
+APP_USER		       CK_APP_USER_EMAIL	      C ENABLED
+APP_USER		       CK_APP_USER_ID		      C ENABLED
+APP_USER		       CK_APP_USER_NAME 	      C ENABLED
+APP_USER		       SYS_C007308		      C ENABLED
+APP_USER		       SYS_C007309		      C ENABLED
+APP_USER		       PK_APP_USER		      P ENABLED
+APP_USER		       UQ_APP_USER_EMAIL	      U ENABLED
+CUSTOMER		       SYS_C007315		      C ENABLED
+CUSTOMER		       PK_CUSTOMER		      P ENABLED
+CUSTOMER		       FK_CUSTOMER_USER 	      R ENABLED
+DELIVERY		       CK_DELIVERY_COMPLETION	      C ENABLED
+
+TABLE_NAME		       CONSTRAINT_NAME		      C STATUS
+------------------------------ ------------------------------ - --------
+DELIVERY		       CK_DELIVERY_PICKUP	      C ENABLED
+DELIVERY		       SYS_C007376		      C ENABLED
+DELIVERY		       SYS_C007377		      C ENABLED
+DELIVERY		       PK_DELIVERY		      P ENABLED
+DELIVERY		       FK_DELIVERY_ORDER	      R ENABLED
+DELIVERY		       FK_DELIVERY_PARTNER	      R ENABLED
+DELIVERY_PARTNER	       CK_PARTNER_AVAILABILITY	      C ENABLED
+DELIVERY_PARTNER	       CK_PARTNER_TRANSPORT	      C ENABLED
+DELIVERY_PARTNER	       SYS_C007318		      C ENABLED
+DELIVERY_PARTNER	       SYS_C007319		      C ENABLED
+DELIVERY_PARTNER	       PK_DELIVERY_PARTNER	      P ENABLED
+
+TABLE_NAME		       CONSTRAINT_NAME		      C STATUS
+------------------------------ ------------------------------ - --------
+DELIVERY_PARTNER	       FK_PARTNER_USER		      R ENABLED
+FOOD_ORDER		       CK_FOOD_ORDER_ID 	      C ENABLED
+FOOD_ORDER		       CK_ORDER_FEE		      C ENABLED
+FOOD_ORDER		       CK_ORDER_STATUS		      C ENABLED
+FOOD_ORDER		       SYS_C007341		      C ENABLED
+FOOD_ORDER		       SYS_C007342		      C ENABLED
+FOOD_ORDER		       SYS_C007343		      C ENABLED
+FOOD_ORDER		       SYS_C007344		      C ENABLED
+FOOD_ORDER		       SYS_C007345		      C ENABLED
+FOOD_ORDER		       SYS_C007346		      C ENABLED
+FOOD_ORDER		       SYS_C007347		      C ENABLED
+
+TABLE_NAME		       CONSTRAINT_NAME		      C STATUS
+------------------------------ ------------------------------ - --------
+FOOD_ORDER		       SYS_C007348		      C ENABLED
+FOOD_ORDER		       PK_FOOD_ORDER		      P ENABLED
+FOOD_ORDER		       FK_ORDER_CUSTOMER	      R ENABLED
+FOOD_ORDER		       FK_ORDER_RESTAURANT	      R ENABLED
+MENU_ITEM		       CK_MENU_AVAILABLE	      C ENABLED
+MENU_ITEM		       CK_MENU_ITEM_ID		      C ENABLED
+MENU_ITEM		       CK_MENU_PRICE		      C ENABLED
+MENU_ITEM		       SYS_C007331		      C ENABLED
+MENU_ITEM		       SYS_C007332		      C ENABLED
+MENU_ITEM		       SYS_C007333		      C ENABLED
+MENU_ITEM		       SYS_C007334		      C ENABLED
+
+TABLE_NAME		       CONSTRAINT_NAME		      C STATUS
+------------------------------ ------------------------------ - --------
+MENU_ITEM		       SYS_C007335		      C ENABLED
+MENU_ITEM		       PK_MENU_ITEM		      P ENABLED
+MENU_ITEM		       FK_MENU_RESTAURANT	      R ENABLED
+ORDER_ITEM		       CK_LINE_PRICE		      C ENABLED
+ORDER_ITEM		       CK_LINE_QUANTITY 	      C ENABLED
+ORDER_ITEM		       SYS_C007355		      C ENABLED
+ORDER_ITEM		       SYS_C007356		      C ENABLED
+ORDER_ITEM		       SYS_C007357		      C ENABLED
+ORDER_ITEM		       SYS_C007358		      C ENABLED
+ORDER_ITEM		       PK_ORDER_ITEM		      P ENABLED
+ORDER_ITEM		       FK_LINE_ITEM		      R ENABLED
+
+TABLE_NAME		       CONSTRAINT_NAME		      C STATUS
+------------------------------ ------------------------------ - --------
+ORDER_ITEM		       FK_LINE_ORDER		      R ENABLED
+PAYMENT 		       CK_PAYMENT_AMOUNT	      C ENABLED
+PAYMENT 		       CK_PAYMENT_ID		      C ENABLED
+PAYMENT 		       CK_PAYMENT_METHOD	      C ENABLED
+PAYMENT 		       CK_PAYMENT_STATUS	      C ENABLED
+PAYMENT 		       CK_PAYMENT_TIME		      C ENABLED
+PAYMENT 		       SYS_C007364		      C ENABLED
+PAYMENT 		       SYS_C007365		      C ENABLED
+PAYMENT 		       SYS_C007366		      C ENABLED
+PAYMENT 		       SYS_C007367		      C ENABLED
+PAYMENT 		       PK_PAYMENT		      P ENABLED
+
+TABLE_NAME		       CONSTRAINT_NAME		      C STATUS
+------------------------------ ------------------------------ - --------
+PAYMENT 		       FK_PAYMENT_ORDER 	      R ENABLED
+PAYMENT 		       UQ_PAYMENT_ORDER 	      U ENABLED
+RESTAURANT		       CK_RESTAURANT_ID 	      C ENABLED
+RESTAURANT		       CK_RESTAURANT_NAME	      C ENABLED
+RESTAURANT		       SYS_C007324		      C ENABLED
+RESTAURANT		       SYS_C007325		      C ENABLED
+RESTAURANT		       SYS_C007326		      C ENABLED
+RESTAURANT		       SYS_C007327		      C ENABLED
+RESTAURANT		       PK_RESTAURANT		      P ENABLED
+
+75 rows selected.
+
+
+  ORDER_ID ORDER_STATUS 	  SUBTOTAL DELIVERY_FEE AMOUNT_DUE
+---------- -------------------- ---------- ------------ ----------
+      1001 DELIVERED		       320	     30        350
+
+
+  ORDER_ID
+----------
+FULL_NAME
+--------------------------------------------------------------------------------
+RESTAURANT_NAME
+--------------------------------------------------------------------------------
+PAYMENT_ST PAYMENT_AMOUNT
+---------- --------------
+DELIVERED_AT
+---------------------------------------------------------------------------
+      1001
+Asha Rao
+Campus Kitchen
+
+  ORDER_ID
+----------
+FULL_NAME
+--------------------------------------------------------------------------------
+RESTAURANT_NAME
+--------------------------------------------------------------------------------
+PAYMENT_ST PAYMENT_AMOUNT
+---------- --------------
+DELIVERED_AT
+---------------------------------------------------------------------------
+SUCCESS 	      350
+04-OCT-26 12.45.00.000000 PM
+
+
+STEP 4: Inspect inserted rows
+
+   USER_ID
+----------
+FULL_NAME
+--------------------------------------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE
+--------------------
+	 1
+Asha Rao
+asha@example.com
+9000000001
+
+
+   USER_ID
+----------
+FULL_NAME
+--------------------------------------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE
+--------------------
+	 2
+Ravi Kumar
+ravi@example.com
+9000000002
+
+
+
+   USER_ID
+----------
+CUSTOMER_SINCE
+---------------------------------------------------------------------------
+	 1
+04-OCT-26 10.00.00.000000 AM
+
+
+
+   USER_ID TRANSPORT_MO AVAILABILITY
+---------- ------------ ------------
+	 2 MOTORBIKE	AVAILABLE
+
+
+RESTAURANT_ID
+-------------
+RESTAURANT_NAME
+--------------------------------------------------------------------------------
+ADDRESS_LINE
+--------------------------------------------------------------------------------
+CITY
+--------------------------------------------------------------------------------
+POSTAL_CODE  CONTACT_PHONE
+------------ --------------------
+	   10
+Campus Kitchen
+12 College Road
+
+RESTAURANT_ID
+-------------
+RESTAURANT_NAME
+--------------------------------------------------------------------------------
+ADDRESS_LINE
+--------------------------------------------------------------------------------
+CITY
+--------------------------------------------------------------------------------
+POSTAL_CODE  CONTACT_PHONE
+------------ --------------------
+Chennai
+600001	     9000000010
+
+
+
+   ITEM_ID RESTAURANT_ID
+---------- -------------
+ITEM_NAME
+--------------------------------------------------------------------------------
+CATEGORY						     CURRENT_PRICE
+------------------------------------------------------------ -------------
+IS_AVAILABLE
+------------
+	11	      10
+Veg Rice
+Main Course							       120
+	   1
+
+
+   ITEM_ID RESTAURANT_ID
+---------- -------------
+ITEM_NAME
+--------------------------------------------------------------------------------
+CATEGORY						     CURRENT_PRICE
+------------------------------------------------------------ -------------
+IS_AVAILABLE
+------------
+	12	      10
+Juice
+Beverage								80
+	   1
+
+
+
+  ORDER_ID CUSTOMER_ID RESTAURANT_ID
+---------- ----------- -------------
+ORDERED_AT
+---------------------------------------------------------------------------
+ORDER_STATUS
+--------------------
+DROPOFF_LINE
+--------------------------------------------------------------------------------
+DROPOFF_CITY
+--------------------------------------------------------------------------------
+DROPOFF_POST DELIVERY_FEE
+------------ ------------
+      1001	     1		  10
+
+  ORDER_ID CUSTOMER_ID RESTAURANT_ID
+---------- ----------- -------------
+ORDERED_AT
+---------------------------------------------------------------------------
+ORDER_STATUS
+--------------------
+DROPOFF_LINE
+--------------------------------------------------------------------------------
+DROPOFF_CITY
+--------------------------------------------------------------------------------
+DROPOFF_POST DELIVERY_FEE
+------------ ------------
+04-OCT-26 12.00.00.000000 PM
+
+  ORDER_ID CUSTOMER_ID RESTAURANT_ID
+---------- ----------- -------------
+ORDERED_AT
+---------------------------------------------------------------------------
+ORDER_STATUS
+--------------------
+DROPOFF_LINE
+--------------------------------------------------------------------------------
+DROPOFF_CITY
+--------------------------------------------------------------------------------
+DROPOFF_POST DELIVERY_FEE
+------------ ------------
+DELIVERED
+
+  ORDER_ID CUSTOMER_ID RESTAURANT_ID
+---------- ----------- -------------
+ORDERED_AT
+---------------------------------------------------------------------------
+ORDER_STATUS
+--------------------
+DROPOFF_LINE
+--------------------------------------------------------------------------------
+DROPOFF_CITY
+--------------------------------------------------------------------------------
+DROPOFF_POST DELIVERY_FEE
+------------ ------------
+Hostel Gate 2
+
+  ORDER_ID CUSTOMER_ID RESTAURANT_ID
+---------- ----------- -------------
+ORDERED_AT
+---------------------------------------------------------------------------
+ORDER_STATUS
+--------------------
+DROPOFF_LINE
+--------------------------------------------------------------------------------
+DROPOFF_CITY
+--------------------------------------------------------------------------------
+DROPOFF_POST DELIVERY_FEE
+------------ ------------
+Chennai
+
+  ORDER_ID CUSTOMER_ID RESTAURANT_ID
+---------- ----------- -------------
+ORDERED_AT
+---------------------------------------------------------------------------
+ORDER_STATUS
+--------------------
+DROPOFF_LINE
+--------------------------------------------------------------------------------
+DROPOFF_CITY
+--------------------------------------------------------------------------------
+DROPOFF_POST DELIVERY_FEE
+------------ ------------
+600001		       30
+
+  ORDER_ID CUSTOMER_ID RESTAURANT_ID
+---------- ----------- -------------
+ORDERED_AT
+---------------------------------------------------------------------------
+ORDER_STATUS
+--------------------
+DROPOFF_LINE
+--------------------------------------------------------------------------------
+DROPOFF_CITY
+--------------------------------------------------------------------------------
+DROPOFF_POST DELIVERY_FEE
+------------ ------------
+
+
+
+  ORDER_ID    ITEM_ID	QUANTITY AGREED_UNIT_PRICE
+---------- ---------- ---------- -----------------
+      1001	   11	       2	       120
+      1001	   12	       1		80
+
+
+PAYMENT_ID   ORDER_ID PAYMENT_ME PAYMENT_AMOUNT PAYMENT_ST
+---------- ---------- ---------- -------------- ----------
+PAID_AT
+---------------------------------------------------------------------------
+      5001	 1001 ONLINE		    350 SUCCESS
+04-OCT-26 12.01.00.000000 PM
+
+
+
+  ORDER_ID PARTNER_ID
+---------- ----------
+ASSIGNED_AT
+---------------------------------------------------------------------------
+PICKED_UP_AT
+---------------------------------------------------------------------------
+DELIVERED_AT
+---------------------------------------------------------------------------
+      1001	    2
+04-OCT-26 12.10.00.000000 PM
+04-OCT-26 12.25.00.000000 PM
+04-OCT-26 12.45.00.000000 PM
+
+
+Setup complete. Expected: nine tables; order 1001 subtotal 320, total 350.

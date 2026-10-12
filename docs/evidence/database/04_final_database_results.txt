@@ -1,0 +1,41 @@
+
+RELATION	     ROWS_PRESENT
+-------------------- ------------
+APP_USER			4
+CUSTOMER			3
+DELIVERY_PARTNER		2
+RESTAURANT			2
+MENU_ITEM			6
+FOOD_ORDER			5
+ORDER_ITEM			9
+PAYMENT 			5
+DELIVERY			2
+
+9 rows selected.
+
+
+  ORDER_ID ORDER_STATUS 	SUBTOTAL DELIVERY_FEE AMOUNT_DUE PAYMENT_STATUS
+---------- ------------------ ---------- ------------ ---------- --------------
+      1001 DELIVERED		     320	   30	     350 SUCCESS
+      1002 PLACED		     160	   20	     180 PENDING
+      1003 PREPARING		     150	   30	     180 SUCCESS
+      1004 DELIVERED		     140	   20	     160 SUCCESS
+      2005 PLACED		     320	   30	     350 PENDING
+
+
+   USER_ID FULL_NAME
+---------- --------------------
+	 3 Meera Shah
+
+
+no rows selected
+
+
+no rows selected
+
+
+no rows selected
+
+
+no rows selected
+

@@ -1,66 +1,121 @@
 # Savour DELIVERY
 
-## Java and Oracle behind this website
+**BACSE202 · Database Systems · Phase 2**
 
-The shared backend is written in **Java**, using **JDBC** to connect to **Oracle**:
+A food-delivery project using **Java, JDBC, Oracle SQL and HTML/CSS/JavaScript**.
+
+**[Open the website](https://aaron-rby.github.io/savour-delivery/)** · [Project guide](docs/COMPLETE_PROJECT_GUIDE.md) · [Database setup](database/README.md)
+
+## Features
+
+- **Customer:** browse restaurants, read food descriptions, build a cart, place orders and view personal order history.
+- **Partners:** view assigned deliveries, record pickup, simulated payment and completion.
+- **Admin:** manage menus using a restaurant dropdown, add restaurants and dishes, prepare orders and assign partners. Red × buttons remove unused customers, partners, restaurants and food; order/delivery history stays protected.
+- **Add user:** choose Customer, Delivery partner or Both. Both roles share one user ID.
+
+The website now uses a shared Java/Oracle backend through a temporary HTTPS tunnel. Your computer, Oracle, Java server and tunnel must stay running. Views refresh every five seconds when no form is being edited. The site retries an offline backend and disables saving until reconnection. Previous browser-only orders are not imported.
+
+**Classroom demo:** no login or enforced role permissions; anyone can choose Admin. Use fictional information. Payments are simulated. The complete project source and public website are now in this single public repository.
+
+## Folder structure
 
 ```text
-This browser website → HTTPS tunnel → WebServer.java → FoodService.java → JDBC → Oracle
+backend/     Java source, tests, run scripts, example config and driver instructions
+database/    Oracle DDL, sample data and review queries
+docs/        Guides, relations/EER, normalization, evidence and Phase 2 PPT
+frontend/    Local interface; site/ contains the hosted public website
+BACSE202_Course_Project_Overview.pdf
+Food-Delivery-System.pdf
+README.md
 ```
 
-- **WebServer.java:** serves the interface and handles GET/POST `/api` requests, JSON responses and the configured GitHub Pages origin.
-- **FoodService.java:** uses prepared SQL statements, validation, transactions, commit/rollback and locks. It handles users/roles, restaurants, food, checkout, preparation, partner assignment, payment, delivery and protected removals.
-- **Phase2Test.java:** exercises Oracle constraints and complete ordering/delivery workflows. Additional rollback-only tests cover the Both-role regression and safe removals.
+## Java backend
 
-The Java code needs JDK 17+ and an Oracle JDBC driver. It runs on the project computer; GitHub Pages hosts only this browser frontend. The complete Java source, Oracle setup and run commands are in the [private full project repository](https://github.com/aaron-rby/food-delivery-system-bacse202#java-backend). Authorized collaborators can open it; public visitors cannot access the private source.
+| File | Responsibility |
+|---|---|
+| [WebServer.java](backend/WebServer.java) | Uses the JDK HTTP server to serve the frontend and expose GET/POST `/api`. Parses form requests and returns JSON. Allows the configured GitHub Pages origin to access the shared API. |
+| [FoodService.java](backend/FoodService.java) | Opens Oracle with `DriverManager.getConnection`, binds SQL values with `PreparedStatement`, validates operations, and commits or rolls back transactions. |
+| [Phase2Test.java](backend/tests/Phase2Test.java) | Checks Oracle constraints, accounts/roles, checkout, historical prices, preparation, payment, assignment and delivery; removes its temporary records. |
 
-## Relational schema — nine tables
+```text
+Browser → WebServer.java → FoodService.java → JDBC → Oracle FOOD_PROJECT
+```
 
-The project's normalization worksheet demonstrates 3NF/BCNF under its stated functional dependencies. Keys and CHECK constraints are enforced in Oracle; cross-table workflow rules are enforced in Java transactions.
+Java handles profile creation, restaurant/dish creation, menu updates, checkout, preparation, partner assignment, pickup, simulated payment, completion and protected removals. Checkout captures agreed prices and saves the order, lines and pending payment in one transaction. Row locks protect workflow updates. Oracle credentials stay on the server.
 
-| Table | Primary key | Foreign keys | Main rule |
-|---|---|---|---|
-| APP_USER | user_id | — | Unique normalized email |
-| CUSTOMER | user_id | APP_USER | Customer subtype, shared ID |
-| DELIVERY_PARTNER | user_id | APP_USER | Partner subtype; allowed transport/availability values |
-| RESTAURANT | restaurant_id | — | Required name and address details |
-| MENU_ITEM | item_id | RESTAURANT | Positive price; availability 0/1 |
-| FOOD_ORDER | order_id | CUSTOMER, RESTAURANT | Allowed status; nonnegative fee |
-| ORDER_ITEM | (order_id, item_id) | FOOD_ORDER, MENU_ITEM | Positive integer quantity and captured price |
-| PAYMENT | payment_id | Unique order_id → FOOD_ORDER | Positive amount; success requires timestamp |
-| DELIVERY | order_id | FOOD_ORDER, DELIVERY_PARTNER | One delivery per order; ordered event timestamps |
+The implementation uses standard JDK libraries and JDBC, with no Java framework. The current server serializes API operations through one Oracle connection. For a larger shared service, connection pooling and separate request transactions would be a later improvement.
 
-Customer and Partner roles overlap: Both uses one APP_USER and two subtype rows. Admin is the external demonstration operator. Order totals are derived from captured line prices plus the delivery fee. Referenced order/delivery history is protected during removal. No reviews, ratings or identity columns are claimed in this model.
+### Compile and run Java
 
-A public, black-and-white browser demo for a Database Systems course project.
+Requires **JDK 17+**, Oracle Database and a compatible Oracle JDBC driver. Run these commands from the repository root:
 
-Choose Customer, Partners or Admin in the header. Customers browse restaurants and see their own orders. Partners see only their assigned deliveries. Admin manages menus, preparation and partner assignment. Meera Shah has both customer and delivery partner roles.
-
-Customer view has an **Add customer** button; Partners view has **Add delivery partner**. The form lets you select Customer, Delivery partner or Both, create a named person, or add roles to an existing person. Both uses one ID across the two roles. IDs identify people even when names match. This is a demonstration role selector without login, so it does not enforce access permissions.
-
-**Shared demonstration:** `backend-config.js` points to a temporary HTTPS tunnel to the local Java/Oracle backend. Visitors share database records while the computer, Oracle, Java server and tunnel are running. Views refresh every five seconds when no form is being edited. There is no login: roles are demonstration filters, not permissions. Use fictional information and simulated payments only.
-
-When the shared server is offline, saving is disabled and the UI retries every five seconds. Existing browser-only orders are not automatically uploaded. Clearing the API URL restores the separate localStorage demo. A restarted Quick Tunnel receives a new URL; update backend-config.js and publish it.
-
-The full Java/JDBC/Oracle project remains in a separate private repository. This public repository contains only the demo's HTML, CSS and JavaScript.
-
-## Run locally
+1. Follow [database setup](database/README.md) in your project schema, not SYS/SYSTEM.
+2. Put the JDBC driver at `backend/lib/ojdbc6.jar`.
+3. Copy the example configuration and fill in your own local credentials:
 
 ```powershell
-python -m http.server 8790 --bind 127.0.0.1
+Copy-Item backend/config/database.example.properties backend/config/database.properties
+New-Item -ItemType Directory -Force build
+javac -d build backend/FoodService.java backend/WebServer.java backend/tests/Phase2Test.java
+java -cp "build;backend/lib/ojdbc6.jar" WebServer backend/config/database.properties
 ```
 
-Open http://127.0.0.1:8790. There are no frontend build dependencies.
+Open **http://127.0.0.1:8788** and check the Oracle connection badge. The Windows shortcut is `backend/scripts/start.cmd`. Real configuration and JARs are ignored by Git.
 
-## Demonstration
+```powershell
+java -cp "build;backend/lib/ojdbc6.jar" Phase2Test backend/config/database.properties
+node --check frontend/app.js
+```
 
-Admin's **Menu management** has a restaurant dropdown. Select a restaurant to edit only its dishes. **Add food** creates a named dish with a category, price and availability. **Add restaurant** collects its name, address, city, postal code and optional phone, then selects it so you can add food. Existing visitors receive six extra fictional customers and ten extra dishes without losing saved orders or edited prices.
+The hosted files are in `frontend/site/`. GitHub Actions publishes that folder automatically. Update `frontend/site/backend-config.js` when the HTTPS tunnel URL changes.
 
-1. Choose Asha Rao and Campus Kitchen.
-2. Add two Veg Rice and one Juice. The total is INR 350 including the delivery fee.
-3. Enter a fictional destination and place the order.
-4. Choose Admin and mark the new order accepted, preparing, then ready.
-5. In Admin, assign an available partner.
-6. Choose Partners, select that partner, record pickup and simulated payment, then mark delivered.
+[JDBC details](docs/connectivity/README.md) · [Shared-backend/tunnel commands](docs/connectivity/SHARED_BACKEND.md)
 
-Online orders require simulated successful payment before pickup. Delivery completion requires successful payment. You can inspect historical prices by changing a current menu price after placing an order.
+## Relational schema — 9 normalized tables
+
+The normalization worksheet demonstrates **3NF and BCNF under the documented functional dependencies**. Oracle enforces keys and CHECK constraints; Java transactions enforce the cross-table business rules.
+
+| Table | Primary key | Foreign keys | Notable database constraints |
+|---|---|---|---|
+| `APP_USER` | `user_id` | — | Required name; unique, lowercase email; optional phone |
+| `CUSTOMER` | `user_id` | `user_id` → `APP_USER` | Shared user ID; required `customer_since` |
+| `DELIVERY_PARTNER` | `user_id` | `user_id` → `APP_USER` | Transport: WALK/BICYCLE/MOTORBIKE/CAR; status: AVAILABLE/BUSY/OFFLINE |
+| `RESTAURANT` | `restaurant_id` | — | Required name, address, city and postal code; optional phone |
+| `MENU_ITEM` | `item_id` | `restaurant_id` → `RESTAURANT` | Positive current price; availability 0/1 |
+| `FOOD_ORDER` | `order_id` | `customer_id` → `CUSTOMER`; `restaurant_id` → `RESTAURANT` | Allowed statuses; nonnegative delivery fee; required destination and order time |
+| `ORDER_ITEM` | (`order_id`, `item_id`) | `order_id` → `FOOD_ORDER`; `item_id` → `MENU_ITEM` | Positive integer quantity; positive captured price; one row per dish/order |
+| `PAYMENT` | `payment_id` | Unique `order_id` → `FOOD_ORDER` | CASH/ONLINE; positive amount; PENDING/SUCCESS/FAILED; success requires timestamp |
+| `DELIVERY` | `order_id` | `order_id` → `FOOD_ORDER`; `partner_id` → `DELIVERY_PARTNER` | One delivery/order; pickup ≥ assignment; completion requires pickup and ordered timestamps |
+
+Customer and Delivery Partner are a **total, overlapping specialization** of APP_USER. Every application-created user has at least one role. Admin is an external classroom operator, rather than a stored third subtype. This schema has no reviews or rating fields.
+
+Users, orders and payments use Oracle sequences. Restaurant/food creation currently allocates IDs using table locks; these are not identity columns.
+
+### Key relational invariants
+
+- Every dish in an order belongs to its selected restaurant.
+- Checkout creates an order, at least one line and pending payment atomically.
+- Captured `agreed_unit_price` preserves old order totals after menu edits.
+- Total is derived: `SUM(quantity × agreed_unit_price) + delivery_fee`.
+- Workflow: PLACED → ACCEPTED → PREPARING → READY → OUT_FOR_DELIVERY → DELIVERED. Cancellation is allowed while PLACED or ACCEPTED.
+- Only an available partner can take a ready order. Assignment marks them busy; completion releases them.
+- Online payment must succeed before pickup; delivery completion requires successful payment matching the total.
+- Removing one user role keeps their other role. Referenced order/delivery history is protected.
+
+Java enforces these cross-table rules; direct SQL must also respect them. [Relations and keys](docs/relations/RELATIONAL_SCHEMA.md) · [EER diagram](docs/relations/Food_Delivery_EER.drawio) · [Normalization](docs/relations/NORMALIZATION_WORKSHEET.md)
+
+## Database commands
+
+Follow `database/README.md` and run the DDL and seed scripts in order. After the expanded seed, run `database/dml/04_more_food_and_customers.sql` for six additional customers and ten dishes. Do not rerun initial creation scripts against an initialized schema.
+
+## Verification and submission
+
+The service suite previously passed 55 Oracle checks. Additional rollback-only tests verified the corrected existing-partner → Both case and protected removals. HTTPS tests verified concurrent profile creation, distinct IDs and visibility to independent clients; disposable verification profiles were removed. GitHub Actions compiles Java and checks JavaScript syntax; it does not run Oracle integration tests.
+
+[Demonstration](docs/DEMONSTRATION_GUIDE.md) · [Verification history](docs/VERIFICATION.md) · [Phase 2 PPT](docs/submission/Food_Delivery_System_Phase2.pptx)
+
+Original presentation/screenshots predate the newest interface and should be refreshed before final submission. Authentication, real payments, refunds and GPS tracking remain outside the current scope.
+
+## Preserved project contents
+
+Both previous repositories and their Git histories were merged without dropping source files. [Preservation record](docs/repository/CONSOLIDATION.md) · [File manifest and hashes](docs/repository/MERGE_MANIFEST.json) · [Hosted website source](frontend/site/)

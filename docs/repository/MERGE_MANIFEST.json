@@ -1,0 +1,314 @@
+[
+  {
+    "source": "public-website",
+    "original": ".nojekyll",
+    "preserved": "frontend/site/.nojekyll",
+    "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+  },
+  {
+    "source": "public-website",
+    "original": "README.md",
+    "preserved": "frontend/site/README.md",
+    "sha256": "417a9bc24460155a0c8830c5964f60eeab737eb7051d440153796214213aecd9"
+  },
+  {
+    "source": "public-website",
+    "original": "app.js",
+    "preserved": "frontend/site/app.js",
+    "sha256": "06cfcc28577fa9179be3da7528fa3271621676a74f2e632b74c98f341b9e68f3"
+  },
+  {
+    "source": "public-website",
+    "original": "backend-config.js",
+    "preserved": "frontend/site/backend-config.js",
+    "sha256": "bbb0fcfeb920c0ba3607c5387b3cf13a9978011cc5b2e4c3f13c2b7548c0f80a"
+  },
+  {
+    "source": "public-website",
+    "original": "index.html",
+    "preserved": "frontend/site/index.html",
+    "sha256": "eabf9f0edd1787c349cc209a4494028db9f6356ccaf27dd229ec25a322a2f769"
+  },
+  {
+    "source": "public-website",
+    "original": "style.css",
+    "preserved": "frontend/site/style.css",
+    "sha256": "fefae73812844b2a99d8f13029f1654209472b4837dd669cc1f15eb9e283506e"
+  },
+  {
+    "source": "full-project",
+    "original": ".github/workflows/build.yml",
+    "preserved": ".github/workflows/build.yml",
+    "sha256": "2e64915aaff06fed9c6fa3531ef805c3621aeed32ad0afff1bfad6e8cd74a02b"
+  },
+  {
+    "source": "full-project",
+    "original": ".gitignore",
+    "preserved": ".gitignore",
+    "sha256": "92264caa1e8d4ea2e56c3001b2783250811a5a85e042d6545f8ed41511a807cb"
+  },
+  {
+    "source": "full-project",
+    "original": "BACSE202_Course_Project_Overview.pdf",
+    "preserved": "BACSE202_Course_Project_Overview.pdf",
+    "sha256": "192760c8763502ff6d7f05a0975f0d7ca57f9cb0faaebe575df445ac88185b35"
+  },
+  {
+    "source": "full-project",
+    "original": "Food-Delivery-System.pdf",
+    "preserved": "Food-Delivery-System.pdf",
+    "sha256": "3b7b12c7f05e06d3a121fcd078dc5de30cc46ce7bb75d9078aa47db3957c9a9e"
+  },
+  {
+    "source": "full-project",
+    "original": "README.md",
+    "preserved": "README.md",
+    "sha256": "41ec94308eaa049f180cad8204c113a050207f26b1e52a397957ca1f501cd2ae"
+  },
+  {
+    "source": "full-project",
+    "original": "backend/FoodService.java",
+    "preserved": "backend/FoodService.java",
+    "sha256": "91f9d3f9287be982d6b38d81b6399b58a8a899a95ae65d90b5101007153d2edf"
+  },
+  {
+    "source": "full-project",
+    "original": "backend/README.md",
+    "preserved": "backend/README.md",
+    "sha256": "661e5c5c1550507a4fb9bfeec8f33f63a33f7377b11425e349122ac5dab1523d"
+  },
+  {
+    "source": "full-project",
+    "original": "backend/WebServer.java",
+    "preserved": "backend/WebServer.java",
+    "sha256": "3a37f1c44ceaf8e0feae41db74987b42240bc4e7b869b72379d2ee368a8f4812"
+  },
+  {
+    "source": "full-project",
+    "original": "backend/config/database.example.properties",
+    "preserved": "backend/config/database.example.properties",
+    "sha256": "8801e8063cfb34895034ae641ec45ce63691d29d98076a20a3745abe7f576522"
+  },
+  {
+    "source": "full-project",
+    "original": "backend/lib/README.md",
+    "preserved": "backend/lib/README.md",
+    "sha256": "28b853fa2c7b62de6ed188e4fadad60c70e255ef40ad128fa376d900e2e6a9a8"
+  },
+  {
+    "source": "full-project",
+    "original": "backend/scripts/build.cmd",
+    "preserved": "backend/scripts/build.cmd",
+    "sha256": "69204dc8fd427a3db30c7a6675c291e873f2d23aede3703725298ceb7c3019f9"
+  },
+  {
+    "source": "full-project",
+    "original": "backend/scripts/start.cmd",
+    "preserved": "backend/scripts/start.cmd",
+    "sha256": "4f7a5a7291a419934dc65cc5b3eceafb2ec2eb7abb135b861500b8f87ba98b01"
+  },
+  {
+    "source": "full-project",
+    "original": "backend/scripts/test.cmd",
+    "preserved": "backend/scripts/test.cmd",
+    "sha256": "7f1bfe0624ea97040b36dc7db8b65265de5285fccba9ce40d33c07b37113bac0"
+  },
+  {
+    "source": "full-project",
+    "original": "backend/tests/Phase2Test.java",
+    "preserved": "backend/tests/Phase2Test.java",
+    "sha256": "eed92c13606f82334877f6639856cf3efe371368564963a27ce81491d5317785"
+  },
+  {
+    "source": "full-project",
+    "original": "backend/tests/RoleReview.java",
+    "preserved": "backend/tests/RoleReview.java",
+    "sha256": "81cdde86221aabd00709a23394c256c298f8e3efab42603dc7361e03695e43e7"
+  },
+  {
+    "source": "full-project",
+    "original": "database/README.md",
+    "preserved": "database/README.md",
+    "sha256": "dc7ed41b3d16ecc08a646ea1f4ea70aec237346450c57e9db1b297556c4795da"
+  },
+  {
+    "source": "full-project",
+    "original": "database/ddl/01_create_tables.sql",
+    "preserved": "database/ddl/01_create_tables.sql",
+    "sha256": "6a114b40487b91bc1a669bd6b90986792ca1202456607b4868dafd967db7e52c"
+  },
+  {
+    "source": "full-project",
+    "original": "database/dml/02_initial_sample_data.sql",
+    "preserved": "database/dml/02_initial_sample_data.sql",
+    "sha256": "01295429b5679b5b2dcae4d8594b4612a9cf70f37ae415b0ffd7966d9275c629"
+  },
+  {
+    "source": "full-project",
+    "original": "database/dml/03_expanded_sample_data_and_sequences.sql",
+    "preserved": "database/dml/03_expanded_sample_data_and_sequences.sql",
+    "sha256": "b863bf0df20fba9fba76a5fbe486efbef3433fc80eef7fbc9ff8c7d33894d8fd"
+  },
+  {
+    "source": "full-project",
+    "original": "database/dml/04_more_food_and_customers.sql",
+    "preserved": "database/dml/04_more_food_and_customers.sql",
+    "sha256": "282fa5894d985679f2487857a6e4e960d734262a7688b6a87f0c17db9cd5bab6"
+  },
+  {
+    "source": "full-project",
+    "original": "database/queries/01_check_tables.sql",
+    "preserved": "database/queries/01_check_tables.sql",
+    "sha256": "2c5e58aad7b0dc0f4ab849b13d5e8b831a569ae7a58ce7b8ddabdd45524a9cd1"
+  },
+  {
+    "source": "full-project",
+    "original": "database/queries/02_review_queries.sql",
+    "preserved": "database/queries/02_review_queries.sql",
+    "sha256": "1bd501a79d6779533765e1b509cc1818d68e57c4a3554ddd87ea67e4d1c8c7a5"
+  },
+  {
+    "source": "full-project",
+    "original": "database/queries/03_view_from_system.sql",
+    "preserved": "database/queries/03_view_from_system.sql",
+    "sha256": "b0793c32f20ade0cb2ddd8af6c6e1ca7f9d3ab3b13dcdec13b278a8d7244a557"
+  },
+  {
+    "source": "full-project",
+    "original": "database/setup/01_create_account.example.sql",
+    "preserved": "database/setup/01_create_account.example.sql",
+    "sha256": "720efa538491a3a6eabaa882ef8fb35b0a6fa1d91fb0f9f6289528940e100a03"
+  },
+  {
+    "source": "full-project",
+    "original": "database/setup/02_all_in_one_initial_setup.sql",
+    "preserved": "database/setup/02_all_in_one_initial_setup.sql",
+    "sha256": "9899ddfbb5bf4fa6d1e412c57880d857805110ac36d51a01a48c932153510935"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/COMPLETE_PROJECT_GUIDE.md",
+    "preserved": "docs/COMPLETE_PROJECT_GUIDE.md",
+    "sha256": "ef64f8efa14bc106b540398a3421313d3d7f30460a612adde36b61fa217b08b8"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/DEMONSTRATION_GUIDE.md",
+    "preserved": "docs/DEMONSTRATION_GUIDE.md",
+    "sha256": "d960a7f3157c7fb63e0df4446cbfe5cf53f5a2fa39ac659a47943090306e465b"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/VERIFICATION.md",
+    "preserved": "docs/VERIFICATION.md",
+    "sha256": "5e79e76f166027ca565bfcdfeb754c8f92a9eb957f1077cfd0faa988cc160df5"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/connectivity/README.md",
+    "preserved": "docs/connectivity/README.md",
+    "sha256": "c873aba707a7d0bb65640dafd223d228a0b7ca179859f01a2c7417f9f634d0ad"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/connectivity/SHARED_BACKEND.md",
+    "preserved": "docs/connectivity/SHARED_BACKEND.md",
+    "sha256": "d66e22bf25a1ef1c84a9d4afa390f01269003afab0aee68e003cb5d368573416"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/evidence/database/01_setup_results.txt",
+    "preserved": "docs/evidence/database/01_setup_results.txt",
+    "sha256": "2c5bab6af69a90ed74fb8ca53832c5d164a21b427c2b391d1eaa6a4b205a2be3"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/evidence/database/02_sample_data_results.txt",
+    "preserved": "docs/evidence/database/02_sample_data_results.txt",
+    "sha256": "86f6f1cd9c10fbfcd5ea0edd82734c0bd5740aae44223abe28d484a5e88d0a43"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/evidence/database/03_verification_results.txt",
+    "preserved": "docs/evidence/database/03_verification_results.txt",
+    "sha256": "490f51c94807250e3788bd8cc22b17f345fd85777ed6bf46efe99819100f6a3e"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/evidence/database/04_final_database_results.txt",
+    "preserved": "docs/evidence/database/04_final_database_results.txt",
+    "sha256": "d9d47d276f372cfe58112bd4ea481c11ee010b47b925625cacdad98db2802679"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/evidence/frontend/01_restaurants.jpg",
+    "preserved": "docs/evidence/frontend/01_restaurants.jpg",
+    "sha256": "ceaf60bda67e296973480e7ee8e9c50424701febc158f0fcba4b6a20d770c3de"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/evidence/frontend/02_menu_cart.jpg",
+    "preserved": "docs/evidence/frontend/02_menu_cart.jpg",
+    "sha256": "6071d2cdef475a2d45e5b4fb3e24ea1b1fa95c2635ab051ed9f5aec7db9472a6"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/evidence/frontend/03_order_saved.jpg",
+    "preserved": "docs/evidence/frontend/03_order_saved.jpg",
+    "sha256": "d53c859a8501127749d2588322c15db78a8c56db653418fb20b15cbeabea91c2"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/relations/EER_TO_RELATIONS_STEP_BY_STEP.md",
+    "preserved": "docs/relations/EER_TO_RELATIONS_STEP_BY_STEP.md",
+    "sha256": "397655ddddcf8fc92edb87962302e397c29e36bad027fee7aa5a43cee4c0fa79"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/relations/Food_Delivery_EER.drawio",
+    "preserved": "docs/relations/Food_Delivery_EER.drawio",
+    "sha256": "9e4a3607ad041dd2e08aa128a76413e43dbbf66265d0e272af48bf5dba5fc448"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/relations/NORMALIZATION_WORKSHEET.md",
+    "preserved": "docs/relations/NORMALIZATION_WORKSHEET.md",
+    "sha256": "1a280fba3bf122041f4634671b16d5aaec7417e9b54b2a29874e725dccaf93f5"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/relations/RELATIONAL_SCHEMA.md",
+    "preserved": "docs/relations/RELATIONAL_SCHEMA.md",
+    "sha256": "5eb5ecf4b47a347986de3e9d5969d1abfe4466bb9150a05c793909d4ec783fbc"
+  },
+  {
+    "source": "full-project",
+    "original": "docs/submission/Food_Delivery_System_Phase2.pptx",
+    "preserved": "docs/submission/Food_Delivery_System_Phase2.pptx",
+    "sha256": "ca4bfbe572c7d84f5b8b24df4d98cb111f8a9e338aea93e5261f61e730da92a5"
+  },
+  {
+    "source": "full-project",
+    "original": "frontend/README.md",
+    "preserved": "frontend/README.md",
+    "sha256": "b657204385e0d3fbc71855f69ce1e3377a5164a0bee03bd672b1d5b929a19b1a"
+  },
+  {
+    "source": "full-project",
+    "original": "frontend/app.js",
+    "preserved": "frontend/app.js",
+    "sha256": "2b3beacc1588c478b51604d0d8342c269a833ddc9b833362383ac635fe806c3b"
+  },
+  {
+    "source": "full-project",
+    "original": "frontend/index.html",
+    "preserved": "frontend/index.html",
+    "sha256": "115ff7be1f51d42cd002c26413c260addcf39c3c703af57bdc063acf6cd9595d"
+  },
+  {
+    "source": "full-project",
+    "original": "frontend/style.css",
+    "preserved": "frontend/style.css",
+    "sha256": "9c56ccb4af49e7ae3fd99377805879b0563ba25875dcd0153668f8f74bbbebaf"
+  }
+]

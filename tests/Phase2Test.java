@@ -21,8 +21,14 @@ public class Phase2Test {
                 check(s.total(1001).compareTo(new BigDecimal("350"))==0,"Original order 1001 totals 350.00");
                 check(s.query("SELECT user_id FROM customer INTERSECT SELECT user_id FROM delivery_partner").size()==1,"Sample user 3 has both roles");
                 rejects("Account must have at least one role",()->s.createAccount("Test","test@example.com","",false,false,"CAR"));
-                user=s.createAccount("Phase 2 test","phase2test@example.com","",true,true,"BICYCLE");
+                user=s.createAccount("Phase 2 test","phase2test@example.com","",true,false,"BICYCLE");
                 final long uid=user;
+                s.addRole(uid,"partner","BICYCLE");
+                s.addRole(uid,"partner","BICYCLE");
+                check(s.query("SELECT user_id FROM delivery_partner WHERE user_id=?",uid).size()==1,"Adding partner role to customer is idempotent");
+                rejects("Profile must exist before adding a role",()->s.addRole(999999999,"customer","WALK"));
+                rejects("Unknown profile role rejected",()->s.addRole(uid,"admin","WALK"));
+                rejects("Invalid partner transport rejected",()->s.addRole(uid,"partner","PLANE"));
                 check(s.query("SELECT user_id FROM customer WHERE user_id=?",uid).size()==1&&s.query("SELECT user_id FROM delivery_partner WHERE user_id=?",uid).size()==1,"Account and overlapping roles commit together");
                 long users=count(s,"APP_USER");
                 rejects("Duplicate email rolls back account creation",()->s.createAccount("Duplicate","PHASE2TEST@EXAMPLE.COM","",true,false,"CAR"));

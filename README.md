@@ -1,5 +1,7 @@
 # Savour
 
+The header selects Customer, Partners or Admin. Customer view contains browsing and personal orders; Partners contains only the selected partner's assignments; Admin handles menus, preparation and assignment. Customer and Partners views have buttons to add named profiles or add that role to an existing person. Oracle stores profiles in APP_USER and the matching subtype table. The role selector is a demonstration without authentication; it does not enforce access permissions.
+
 BACSE202 Database Systems course project. A simple black-and-white browser application backed by Java and Oracle JDBC.
 
 ## Shareable browser demo

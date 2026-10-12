@@ -75,6 +75,16 @@ public class FoodService implements AutoCloseable {
             if(customer)write("INSERT INTO customer VALUES (?,SYSTIMESTAMP)",id);
             if(partner)write("INSERT INTO delivery_partner VALUES (?,?,'AVAILABLE')",id,mode);return id;});
     }
+    public long addRole(long user,String role,String mode) throws Exception {
+        require(Arrays.asList("customer","partner").contains(role),"Invalid profile role.");
+        require(!role.equals("partner")||Arrays.asList("WALK","BICYCLE","MOTORBIKE","CAR").contains(mode),"Invalid transport mode.");
+        return transaction(()->{
+            require(!query("SELECT user_id FROM app_user WHERE user_id=? FOR UPDATE",user).isEmpty(),"Profile not found.");
+            if(role.equals("customer")&&query("SELECT user_id FROM customer WHERE user_id=?",user).isEmpty())write("INSERT INTO customer VALUES (?,SYSTIMESTAMP)",user);
+            if(role.equals("partner")&&query("SELECT user_id FROM delivery_partner WHERE user_id=?",user).isEmpty())write("INSERT INTO delivery_partner VALUES (?,?,'AVAILABLE')",user,mode);
+            return user;
+        });
+    }
     public long placeOrder(long customer,long restaurant,Map<Long,Integer> cart,String address,String city,String postal,BigDecimal fee,String method) throws Exception {
         final String a=required(address,200,"Address"),c=required(city,80,"City"),p=required(postal,12,"Postal code");
         require(!cart.isEmpty(),"Add at least one item."); require(customer>0&&restaurant>0,"Choose customer and restaurant.");

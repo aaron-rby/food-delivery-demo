@@ -38,7 +38,12 @@ public class WebServer {
       }
       if(!token.equals(x.getRequestHeaders().getFirst("X-Session-Token"))){reply(x,403,"{\"error\":\"Refresh the page before making changes.\"}","application/json");return;}
       Map<String,String> p=form(x);String action=p.get("action");String result="";
-      if("place".equals(action)) {
+      if("profile".equals(action)) {
+        String role=p.get("role");FoodService.require(Arrays.asList("customer","partner").contains(role),"Invalid profile role.");
+        String existing=p.getOrDefault("existing","");
+        long user=existing.isEmpty()?service.createAccount(p.get("name"),"demo-"+UUID.randomUUID()+"@example.invalid",null,role.equals("customer"),role.equals("partner"),p.get("transport")):service.addRole(Long.parseLong(existing),role,p.get("transport"));
+        result=Long.toString(user);
+      } else if("place".equals(action)) {
         Map<Long,Integer> cart=new LinkedHashMap<>();for(String line:p.getOrDefault("cart","").split(","))if(!line.isEmpty()){String[] parts=line.split(":");cart.put(Long.parseLong(parts[0]),Integer.parseInt(parts[1]));}
         long order=service.placeOrder(id(p,"customer"),id(p,"restaurant"),cart,p.get("address"),p.get("city"),p.get("postal"),new BigDecimal("30.00"),p.get("method"));result=Long.toString(order);
       } else if("menu".equals(action))service.editMenu(id(p,"item"),FoodService.money(p.get("price"),false),"1".equals(p.get("available")));

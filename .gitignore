@@ -1,0 +1,13 @@
+build/
+*.class
+*.jar
+config/*.properties
+!config/database.example.properties
+local-config/
+.env
+.env.*
+*.log
+*.zip
+.DS_Store
+Thumbs.db
+*.validated

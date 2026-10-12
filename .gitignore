@@ -1,8 +1,8 @@
 build/
 *.class
 *.jar
-config/*.properties
-!config/database.example.properties
+backend/config/*.properties
+!backend/config/database.example.properties
 local-config/
 .env
 .env.*

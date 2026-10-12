@@ -8,15 +8,15 @@ The HTTP server runs on loopback port 8788. It serves `frontend/` and exposes `/
 
 ## 1. Configure the driver and connection
 
-Copy a suitable Oracle JDBC driver to `lib/ojdbc6.jar`. The original local driver is at `C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib\ojdbc6.jar`; installations can differ. You may instead use another compatible Oracle driver and update the runtime classpath.
+Copy a suitable Oracle JDBC driver to `backend/lib/ojdbc6.jar`. The original local driver is at `C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib\ojdbc6.jar`; installations can differ. You may instead use another compatible Oracle driver and update the runtime classpath.
 
 ```powershell
 New-Item -ItemType Directory -Force lib
-Copy-Item 'C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib\ojdbc6.jar' lib/ojdbc6.jar
-Copy-Item config/database.example.properties config/database.properties
+Copy-Item 'C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib\ojdbc6.jar' backend/lib/ojdbc6.jar
+Copy-Item backend/config/database.example.properties backend/config/database.properties
 ```
 
-Edit `config/database.properties` locally:
+Edit `backend/config/database.properties` locally:
 
 ```properties
 url=jdbc:oracle:thin:@localhost:1521:XE
@@ -30,23 +30,23 @@ For a database service instead of an SID, use a suitable service URL such as `jd
 
 ```powershell
 New-Item -ItemType Directory -Force build
-javac -d build backend/FoodService.java backend/WebServer.java tests/Phase2Test.java
+javac -d build backend/FoodService.java backend/WebServer.java backend/tests/Phase2Test.java
 ```
 
 ## 3. Start the backend and front end together
 
 ```powershell
-java -cp "build;lib/ojdbc6.jar" WebServer config/database.properties
+java -cp "build;backend/lib/ojdbc6.jar" WebServer backend/config/database.properties
 ```
 
-Keep the terminal open and visit http://127.0.0.1:8788. The terminal should print `Oracle JDBC connected.` The Windows shortcut is `scripts/start.cmd`.
+Keep the terminal open and visit http://127.0.0.1:8788. The terminal should print `Oracle JDBC connected.` The Windows shortcut is `backend/scripts/start.cmd`.
 
-On macOS/Linux, replace the semicolon between classpath entries with a colon: `-cp "build:lib/ojdbc6.jar"`.
+On macOS/Linux, replace the semicolon between classpath entries with a colon: `-cp "build:backend/lib/ojdbc6.jar"`.
 
 ## 4. Run integration tests
 
 ```powershell
-java -cp "build;lib/ojdbc6.jar" Phase2Test config/database.properties
+java -cp "build;backend/lib/ojdbc6.jar" Phase2Test backend/config/database.properties
 ```
 
 The test runner creates temporary records and removes its own records afterward. It restores the sampled menu price and checks original row counts. Run it against the project/test schema, not unrelated data.

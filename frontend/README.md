@@ -10,11 +10,11 @@ The interface uses plain HTML, CSS and JavaScript. No npm install or framework b
 
 ## Run with Oracle
 
-From the repository root, compile and start the Java server using [the connectivity commands](../connectivity/README.md). Open http://127.0.0.1:8788.
+From the repository root, compile and start the Java server using [the connectivity commands](../docs/connectivity/README.md). Open http://127.0.0.1:8788.
 
 ```powershell
 javac -d build backend/FoodService.java backend/WebServer.java
-java -cp "build;lib/ojdbc6.jar" WebServer config/database.properties
+java -cp "build;backend/lib/ojdbc6.jar" WebServer backend/config/database.properties
 ```
 
 ## Preview only

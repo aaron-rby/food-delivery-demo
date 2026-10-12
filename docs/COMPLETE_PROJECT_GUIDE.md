@@ -348,25 +348,25 @@ The service also locks selected rows during sensitive operations so concurrent a
 
 | File/folder | Purpose |
 |---|---|
-| scripts/start.cmd | Compile and launch the local application. |
+| backend/scripts/start.cmd | Compile and launch the local application. |
 | frontend/index.html | Page structure, header and checkout form. |
 | frontend/style.css | Black-and-white layout and responsive styling. |
 | frontend/app.js | Screens, cart controls, request handling and labelled browser demo. |
 | backend/WebServer.java | Local HTTP server and browser-to-service adapter. |
 | backend/FoodService.java | JDBC queries, transactions and business rules. |
-| tests/Phase2Test.java | Automated integration checks. |
-| lib/ojdbc6.jar | JDBC driver from the installed Oracle XE. |
+| backend/tests/Phase2Test.java | Automated integration checks. |
+| backend/lib/ojdbc6.jar | JDBC driver from the installed Oracle XE. |
 | database/setup/02_all_in_one_initial_setup.sql | Initial nine-table creation, initial sample data and checks. |
 | database/dml/03_expanded_sample_data_and_sequences.sql | Expanded sample cases and ID sequences. |
 | database/queries/02_review_queries.sql | Read-only counts, totals and integrity queries. |
 | database/queries/03_view_from_system.sql | Read FOOD_PROJECT tables from the administrator worksheet. |
 | submission/ | Submission PPT and supporting ZIP. |
 
-The private connection file is `config/database.properties`. It is excluded from the supporting ZIP.
+The private connection file is `backend/config/database.properties`. It is excluded from the supporting ZIP.
 
 ## 15. Run the project and inspect the database
 
-Double-click **scripts/start.cmd**. Keep its terminal open. Visit **http://127.0.0.1:8788**. If the page opens before the server is ready, refresh it.
+Double-click **backend/scripts/start.cmd**. Keep its terminal open. Visit **http://127.0.0.1:8788**. If the page opens before the server is ready, refresh it.
 
 If the server is already running, open the URL instead of launching another copy.
 

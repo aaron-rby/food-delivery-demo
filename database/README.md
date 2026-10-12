@@ -1,6 +1,6 @@
 # Database commands
 
-The project has nine tables. Their columns, keys, cardinalities and business rules are described in [the relational schema](../relations/RELATIONAL_SCHEMA.md).
+The project has nine tables. Their columns, keys, cardinalities and business rules are described in [the relational schema](../docs/relations/RELATIONAL_SCHEMA.md).
 
 ## 1. Create an account
 

@@ -11,5 +11,5 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - run: mkdir -p build && javac -d build backend/FoodService.java backend/WebServer.java tests/Phase2Test.java
+      - run: mkdir -p build && javac -d build backend/FoodService.java backend/WebServer.java backend/tests/Phase2Test.java
       - run: node --check frontend/app.js

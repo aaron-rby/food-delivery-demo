@@ -3,3 +3,5 @@
 
 .demo-notice{padding:12px 35px;background:#f4f4f4;border-bottom:1px solid #d9d9d9;font-size:11px;line-height:1.7;color:#555}
 @media(max-width:650px){.demo-notice{padding:12px 20px}}
+
+.company-contact{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center}.company-contact strong{font-size:13px;color:#171717}.company-contact small{flex-basis:100%;font-size:10px;color:#888}footer{align-items:flex-start}footer button{white-space:nowrap}@media(max-width:650px){.company-contact{flex-direction:column;align-items:flex-start;gap:8px}.company-contact small{flex-basis:auto}}

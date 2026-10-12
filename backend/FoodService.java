@@ -80,7 +80,7 @@ public class FoodService implements AutoCloseable {
         require(role.equals("customer")||Arrays.asList("WALK","BICYCLE","MOTORBIKE","CAR").contains(mode),"Invalid transport mode.");
         return transaction(()->{
             require(!query("SELECT user_id FROM app_user WHERE user_id=? FOR UPDATE",user).isEmpty(),"Profile not found.");
-            if(!!role.equals("customer")&&query("SELECT user_id FROM customer WHERE user_id=?",user).isEmpty())write("INSERT INTO customer VALUES (?,SYSTIMESTAMP)",user);
+            if(!role.equals("partner")&&query("SELECT user_id FROM customer WHERE user_id=?",user).isEmpty())write("INSERT INTO customer VALUES (?,SYSTIMESTAMP)",user);
             if(!role.equals("customer")&&query("SELECT user_id FROM delivery_partner WHERE user_id=?",user).isEmpty())write("INSERT INTO delivery_partner VALUES (?,?,'AVAILABLE')",user,mode);
             return user;
         });
@@ -127,6 +127,26 @@ public class FoodService implements AutoCloseable {
             long item=Long.parseLong(query("SELECT NVL(MAX(item_id),0)+1 FROM menu_item").get(0)[0]);
             write("INSERT INTO menu_item VALUES (?,?,?,?,?,?)",item,restaurant,n,c,price,available?1:0);
             return item;
+        });
+    }
+    public void removeFood(long item)throws Exception {
+        transaction(()->{require(write("DELETE FROM menu_item WHERE item_id=? AND NOT EXISTS (SELECT 1 FROM order_item WHERE item_id=?)",item,item)==1,"Food is missing or used by an order. Mark it unavailable instead.");return null;});
+    }
+    public void removeCustomer(long user)throws Exception {
+        transaction(()->{
+            require(!query("SELECT user_id FROM app_user WHERE user_id=? FOR UPDATE",user).isEmpty(),"Customer not found.");
+            require(query("SELECT order_id FROM food_order WHERE customer_id=?",user).isEmpty(),"This customer has order history and cannot be removed.");
+            require(write("DELETE FROM customer WHERE user_id=?",user)==1,"Customer not found.");
+            if(query("SELECT user_id FROM delivery_partner WHERE user_id=?",user).isEmpty())write("DELETE FROM app_user WHERE user_id=?",user);
+            return null;
+        });
+    }
+    public void removeRestaurant(long restaurant)throws Exception {
+        transaction(()->{
+            require(!query("SELECT restaurant_id FROM restaurant WHERE restaurant_id=? FOR UPDATE",restaurant).isEmpty(),"Restaurant not found.");
+            require(query("SELECT order_id FROM food_order WHERE restaurant_id=?",restaurant).isEmpty(),"This restaurant has order history and cannot be removed.");
+            write("DELETE FROM menu_item WHERE restaurant_id=?",restaurant);
+            require(write("DELETE FROM restaurant WHERE restaurant_id=?",restaurant)==1,"Restaurant not found.");return null;
         });
     }
     public void editMenu(long item,BigDecimal price,boolean available) throws Exception {

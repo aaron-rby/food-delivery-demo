@@ -49,6 +49,9 @@ public class WebServer {
       } else if("menu".equals(action))service.editMenu(id(p,"item"),FoodService.money(p.get("price"),false),"1".equals(p.get("available")));
       else if("create-restaurant".equals(action))result=Long.toString(service.createRestaurant(p.get("name"),p.get("address"),p.get("city"),p.get("postal"),p.get("phone")));
       else if("create-food".equals(action))result=Long.toString(service.createFood(id(p,"restaurant"),p.get("name"),p.get("category"),FoodService.money(p.get("price"),false),"1".equals(p.get("available"))));
+      else if("remove-food".equals(action))service.removeFood(id(p,"id"));
+      else if("remove-customer".equals(action))service.removeCustomer(id(p,"id"));
+      else if("remove-restaurant".equals(action))service.removeRestaurant(id(p,"id"));
       else if("advance".equals(action))service.advance(id(p,"order"),p.get("target"));
       else if("pay".equals(action))service.pay(id(p,"order"));
       else if("assign".equals(action))service.assign(id(p,"order"),id(p,"partner"));

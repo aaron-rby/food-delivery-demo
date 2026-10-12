@@ -2,7 +2,9 @@
 
 A public, black-and-white browser demo for a Database Systems course project.
 
-Try restaurant browsing, dish descriptions, cart/checkout, order history, menu editing, preparation and delivery workflows. Select a demo customer from the header. Meera Shah has both customer and delivery partner roles.
+Choose Customer, Partners or Admin in the header. Customers browse restaurants and see their own orders. Partners see only their assigned deliveries. Admin manages menus, preparation and partner assignment. Meera Shah has both customer and delivery partner roles.
+
+Customer view has an **Add customer** button; Partners view has **Add delivery partner**. Create a named person or add a role to an existing person. IDs identify people even when names match. This is a demonstration role selector without login, so it does not enforce access permissions.
 
 **This site uses fictional sample data stored in your browser's localStorage.** It does not connect to Oracle or a shared backend, and it does not process real payments. Changes made by one visitor do not appear in another visitor's browser.
 
@@ -21,8 +23,8 @@ Open http://127.0.0.1:8790. There are no frontend build dependencies.
 1. Choose Asha Rao and Campus Kitchen.
 2. Add two Veg Rice and one Juice. The total is INR 350 including the delivery fee.
 3. Enter a fictional destination and place the order.
-4. Open Kitchen and mark the new order accepted, preparing, then ready.
-5. Open Deliveries and assign an available partner.
-6. Record pickup and simulated payment, then mark delivered.
+4. Choose Admin and mark the new order accepted, preparing, then ready.
+5. In Admin, assign an available partner.
+6. Choose Partners, select that partner, record pickup and simulated payment, then mark delivered.
 
 Online orders require simulated successful payment before pickup. Delivery completion requires successful payment. You can inspect historical prices by changing a current menu price after placing an order.

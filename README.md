@@ -2,6 +2,12 @@
 
 BACSE202 Database Systems course project. A simple black-and-white browser application backed by Java and Oracle JDBC.
 
+## Shareable browser demo
+
+[Open the public demo](https://aaron-rby.github.io/food-delivery-demo/)
+
+Friends can try the interface without installing Java or Oracle. This separate public demo uses fictional records saved only in each visitor's browser. It has no shared database or real payments. This full project repository remains private.
+
 Customers browse restaurants, add dishes and place orders. Kitchen and delivery views demonstrate menu updates, preparation, partner assignment, pickup and delivery. The nine-table schema follows the Phase 1 relational design.
 
 ## Project structure

@@ -4,3 +4,5 @@
 .company-contact{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center}.company-contact strong{font-size:13px;color:#171717}.company-contact small{flex-basis:100%;font-size:10px;color:#888}footer{align-items:flex-start}footer button{white-space:nowrap}@media(max-width:650px){.company-contact{flex-direction:column;align-items:flex-start;gap:8px}.company-contact small{flex-basis:auto}}
 
 [hidden]{display:none!important}.header-right #add-profile{font-size:11px;padding:8px 10px}.role-note{font-size:11px;color:#686868;margin-bottom:25px}
+
+.menu-controls{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:0 0 24px}.menu-controls label{display:flex;align-items:center;gap:10px;font-size:12px}.menu-controls select{min-width:210px}.availability-option{display:flex;align-items:center;gap:8px}#food-form .availability-option input{width:auto}

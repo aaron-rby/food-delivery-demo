@@ -13,7 +13,7 @@ public class Phase2Test {
     public static void main(String[] args) throws Exception {
         Properties p=new Properties();try(java.io.Reader r=Files.newBufferedReader(Paths.get(args[0]))){p.load(r);}
         try(FoodService s=new FoodService(p.getProperty("url"),p.getProperty("user"),p.getProperty("password"))){
-            long user=0,partner=0,order=0,cancelOrder=0,onlineOrder=0;
+            long user=0,partner=0,order=0,cancelOrder=0,onlineOrder=0,newRestaurant=0,newFood=0;
             BigDecimal oldPrice=new BigDecimal(s.query("SELECT current_price FROM menu_item WHERE item_id=11").get(0)[0]);
             LinkedHashMap<String,Long> before=new LinkedHashMap<>();for(String t:Arrays.asList("APP_USER","CUSTOMER","DELIVERY_PARTNER","RESTAURANT","MENU_ITEM","FOOD_ORDER","ORDER_ITEM","PAYMENT","DELIVERY"))before.put(t,count(s,t));
             try {
@@ -23,7 +23,7 @@ public class Phase2Test {
                 rejects("Account must have at least one role",()->s.createAccount("Test","test@example.com","",false,false,"CAR"));
                 user=s.createAccount("Phase 2 test","phase2test@example.com","",true,false,"BICYCLE");
                 final long uid=user;
-                s.addRole(uid,"partner","BICYCLE");
+                s.addRole(uid,"both","BICYCLE");
                 s.addRole(uid,"partner","BICYCLE");
                 check(s.query("SELECT user_id FROM delivery_partner WHERE user_id=?",uid).size()==1,"Adding partner role to customer is idempotent");
                 rejects("Profile must exist before adding a role",()->s.addRole(999999999,"customer","WALK"));
@@ -75,8 +75,18 @@ public class Phase2Test {
                 rejects("Oracle rejects success without a payment timestamp",()->s.transaction(()->{s.write("UPDATE payment SET paid_at=NULL WHERE order_id=1001");return null;}));
                 rejects("Oracle rejects delivery before pickup",()->s.transaction(()->{s.write("UPDATE delivery SET delivered_at=assigned_at WHERE order_id=1001");return null;}));
                 rejects("Oracle preserves referenced menu history",()->s.transaction(()->{s.write("DELETE FROM menu_item WHERE item_id=11");return null;}));
+                rejects("Restaurant requires a name",()->s.createRestaurant(" ","Gate","Chennai","600001",null));
+                newRestaurant=s.createRestaurant("Test Kitchen","Sample Gate","Chennai","600001",null);
+                final long rid=newRestaurant;
+                check(s.query("SELECT restaurant_id FROM restaurant WHERE restaurant_id=?",rid).size()==1,"New restaurant saved through JDBC");
+                rejects("Food requires an existing restaurant",()->s.createFood(999999999,"Soup","Main Course",new BigDecimal("60.00"),true));
+                rejects("Food requires a positive price",()->s.createFood(rid,"Soup","Main Course",BigDecimal.ZERO,true));
+                newFood=s.createFood(rid,"Chef's Soup","Main Course",new BigDecimal("60.00"),false);
+                check(s.query("SELECT item_id FROM menu_item WHERE item_id=? AND restaurant_id=? AND is_available=0",newFood,rid).size()==1,"New food belongs to selected restaurant and preserves availability");
             } finally {
                 final long[] cleanup={order,cancelOrder,onlineOrder};final long uid=user;
+                final long rid=newRestaurant,mid=newFood;
+                s.transaction(()->{if(mid>0)s.write("DELETE FROM menu_item WHERE item_id=?",mid);if(rid>0)s.write("DELETE FROM restaurant WHERE restaurant_id=?",rid);return null;});
                 s.transaction(()->{for(long o:cleanup)if(o>0){s.write("DELETE FROM delivery WHERE order_id=?",o);s.write("DELETE FROM payment WHERE order_id=?",o);s.write("DELETE FROM order_item WHERE order_id=?",o);s.write("DELETE FROM food_order WHERE order_id=?",o);}if(uid>0){s.write("DELETE FROM delivery_partner WHERE user_id=?",uid);s.write("DELETE FROM customer WHERE user_id=?",uid);s.write("DELETE FROM app_user WHERE user_id=?",uid);}s.write("UPDATE menu_item SET current_price=? WHERE item_id=11",oldPrice);return null;});
             }
             for(String table:before.keySet())check(count(s,table)==before.get(table),"Test cleanup preserves original "+table+" row count");

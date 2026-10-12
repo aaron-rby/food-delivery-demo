@@ -76,12 +76,12 @@ public class FoodService implements AutoCloseable {
             if(partner)write("INSERT INTO delivery_partner VALUES (?,?,'AVAILABLE')",id,mode);return id;});
     }
     public long addRole(long user,String role,String mode) throws Exception {
-        require(Arrays.asList("customer","partner").contains(role),"Invalid profile role.");
-        require(!role.equals("partner")||Arrays.asList("WALK","BICYCLE","MOTORBIKE","CAR").contains(mode),"Invalid transport mode.");
+        require(Arrays.asList("customer","partner","both").contains(role),"Invalid profile role.");
+        require(role.equals("customer")||Arrays.asList("WALK","BICYCLE","MOTORBIKE","CAR").contains(mode),"Invalid transport mode.");
         return transaction(()->{
             require(!query("SELECT user_id FROM app_user WHERE user_id=? FOR UPDATE",user).isEmpty(),"Profile not found.");
-            if(role.equals("customer")&&query("SELECT user_id FROM customer WHERE user_id=?",user).isEmpty())write("INSERT INTO customer VALUES (?,SYSTIMESTAMP)",user);
-            if(role.equals("partner")&&query("SELECT user_id FROM delivery_partner WHERE user_id=?",user).isEmpty())write("INSERT INTO delivery_partner VALUES (?,?,'AVAILABLE')",user,mode);
+            if(!!role.equals("customer")&&query("SELECT user_id FROM customer WHERE user_id=?",user).isEmpty())write("INSERT INTO customer VALUES (?,SYSTIMESTAMP)",user);
+            if(!role.equals("customer")&&query("SELECT user_id FROM delivery_partner WHERE user_id=?",user).isEmpty())write("INSERT INTO delivery_partner VALUES (?,?,'AVAILABLE')",user,mode);
             return user;
         });
     }
@@ -105,6 +105,28 @@ public class FoodService implements AutoCloseable {
             for(Long id:prices.keySet())write("INSERT INTO order_item VALUES (?,?,?,?)",order,id,cart.get(id),prices.get(id));
             write("INSERT INTO payment (payment_id,order_id,payment_method,payment_amount,payment_status) VALUES (?,?,?,?,'PENDING')",nextId("payment_seq"),order,method,total(order));
             return order;
+        });
+    }
+    public long createRestaurant(String name,String address,String city,String postal,String phone) throws Exception {
+        final String n=required(name,120,"Restaurant name"),a=required(address,200,"Address"),c=required(city,80,"City"),p=required(postal,12,"Postal code");
+        require(phone==null||phone.length()<=20,"Phone is too long.");
+        return transaction(()->{
+            try(Statement lock=db.createStatement()){lock.execute("LOCK TABLE restaurant IN EXCLUSIVE MODE");}
+            long id=Long.parseLong(query("SELECT NVL(MAX(restaurant_id),0)+1 FROM restaurant").get(0)[0]);
+            write("INSERT INTO restaurant VALUES (?,?,?,?,?,?)",id,n,a,c,p,phone);
+            return id;
+        });
+    }
+    public long createFood(long restaurant,String name,String category,BigDecimal price,boolean available) throws Exception {
+        final String n=required(name,120,"Food name"),c=required(category,60,"Category");
+        require(price!=null&&price.signum()>0&&price.scale()<=2&&price.precision()<=10,"Enter a valid positive price.");
+        return transaction(()->{
+            require(!query("SELECT restaurant_id FROM restaurant WHERE restaurant_id=?",restaurant).isEmpty(),"Restaurant not found.");
+            // Serializes ID allocation for inserts without changing the course schema.
+            try(Statement lock=db.createStatement()){lock.execute("LOCK TABLE menu_item IN EXCLUSIVE MODE");}
+            long item=Long.parseLong(query("SELECT NVL(MAX(item_id),0)+1 FROM menu_item").get(0)[0]);
+            write("INSERT INTO menu_item VALUES (?,?,?,?,?,?)",item,restaurant,n,c,price,available?1:0);
+            return item;
         });
     }
     public void editMenu(long item,BigDecimal price,boolean available) throws Exception {

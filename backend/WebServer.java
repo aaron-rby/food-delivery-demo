@@ -39,14 +39,16 @@ public class WebServer {
       if(!token.equals(x.getRequestHeaders().getFirst("X-Session-Token"))){reply(x,403,"{\"error\":\"Refresh the page before making changes.\"}","application/json");return;}
       Map<String,String> p=form(x);String action=p.get("action");String result="";
       if("profile".equals(action)) {
-        String role=p.get("role");FoodService.require(Arrays.asList("customer","partner").contains(role),"Invalid profile role.");
+        String role=p.get("role");FoodService.require(Arrays.asList("customer","partner","both").contains(role),"Invalid profile role.");
         String existing=p.getOrDefault("existing","");
-        long user=existing.isEmpty()?service.createAccount(p.get("name"),"demo-"+UUID.randomUUID()+"@example.invalid",null,role.equals("customer"),role.equals("partner"),p.get("transport")):service.addRole(Long.parseLong(existing),role,p.get("transport"));
+        long user=existing.isEmpty()?service.createAccount(p.get("name"),"demo-"+UUID.randomUUID()+"@example.invalid",null,!role.equals("partner"),!role.equals("customer"),p.get("transport")):service.addRole(Long.parseLong(existing),role,p.get("transport"));
         result=Long.toString(user);
       } else if("place".equals(action)) {
         Map<Long,Integer> cart=new LinkedHashMap<>();for(String line:p.getOrDefault("cart","").split(","))if(!line.isEmpty()){String[] parts=line.split(":");cart.put(Long.parseLong(parts[0]),Integer.parseInt(parts[1]));}
         long order=service.placeOrder(id(p,"customer"),id(p,"restaurant"),cart,p.get("address"),p.get("city"),p.get("postal"),new BigDecimal("30.00"),p.get("method"));result=Long.toString(order);
       } else if("menu".equals(action))service.editMenu(id(p,"item"),FoodService.money(p.get("price"),false),"1".equals(p.get("available")));
+      else if("create-restaurant".equals(action))result=Long.toString(service.createRestaurant(p.get("name"),p.get("address"),p.get("city"),p.get("postal"),p.get("phone")));
+      else if("create-food".equals(action))result=Long.toString(service.createFood(id(p,"restaurant"),p.get("name"),p.get("category"),FoodService.money(p.get("price"),false),"1".equals(p.get("available"))));
       else if("advance".equals(action))service.advance(id(p,"order"),p.get("target"));
       else if("pay".equals(action))service.pay(id(p,"order"));
       else if("assign".equals(action))service.assign(id(p,"order"),id(p,"partner"));

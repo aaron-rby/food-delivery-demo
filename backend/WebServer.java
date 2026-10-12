@@ -29,6 +29,14 @@ public class WebServer {
   static long id(Map<String,String> p,String key){return Long.parseLong(p.get(key));}
   static synchronized void api(HttpExchange x)throws IOException {
     try {
+      String origin=x.getRequestHeaders().getFirst("Origin");
+      if("https://aaron-rby.github.io".equals(origin)){
+        x.getResponseHeaders().set("Access-Control-Allow-Origin",origin);
+        x.getResponseHeaders().set("Vary","Origin");
+        x.getResponseHeaders().set("Access-Control-Allow-Methods","GET, POST, OPTIONS");
+        x.getResponseHeaders().set("Access-Control-Allow-Headers","Content-Type, X-Session-Token");
+      }
+      if(x.getRequestMethod().equals("OPTIONS")){reply(x,"https://aaron-rby.github.io".equals(origin)?200:403,"{}","application/json");return;}
       if(!x.getRequestMethod().equals("GET")&&!x.getRequestMethod().equals("POST")){reply(x,405,"{}","application/json");return;}
       String host=x.getRequestHeaders().getFirst("Host");if(!"127.0.0.1:8788".equals(host)&&!"localhost:8788".equals(host)){reply(x,403,"{}","application/json");return;}
       if(service==null){reply(x,503,"{\"error\":\"Oracle connection is unavailable. Check the private connection properties, then restart the server.\"}","application/json");return;}
@@ -49,6 +57,7 @@ public class WebServer {
       } else if("menu".equals(action))service.editMenu(id(p,"item"),FoodService.money(p.get("price"),false),"1".equals(p.get("available")));
       else if("create-restaurant".equals(action))result=Long.toString(service.createRestaurant(p.get("name"),p.get("address"),p.get("city"),p.get("postal"),p.get("phone")));
       else if("create-food".equals(action))result=Long.toString(service.createFood(id(p,"restaurant"),p.get("name"),p.get("category"),FoodService.money(p.get("price"),false),"1".equals(p.get("available"))));
+      else if("remove-partner".equals(action))service.removePartner(id(p,"id"));
       else if("remove-food".equals(action))service.removeFood(id(p,"id"));
       else if("remove-customer".equals(action))service.removeCustomer(id(p,"id"));
       else if("remove-restaurant".equals(action))service.removeRestaurant(id(p,"id"));

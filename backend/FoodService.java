@@ -129,6 +129,14 @@ public class FoodService implements AutoCloseable {
             return item;
         });
     }
+    public void removePartner(long user)throws Exception {
+        transaction(()->{
+            require(!query("SELECT user_id FROM app_user WHERE user_id=? FOR UPDATE",user).isEmpty(),"Partner not found.");
+            require(query("SELECT order_id FROM delivery WHERE partner_id=?",user).isEmpty(),"This partner has delivery history and cannot be removed.");
+            require(write("DELETE FROM delivery_partner WHERE user_id=?",user)==1,"Partner not found.");
+            if(query("SELECT user_id FROM customer WHERE user_id=?",user).isEmpty())write("DELETE FROM app_user WHERE user_id=?",user);return null;
+        });
+    }
     public void removeFood(long item)throws Exception {
         transaction(()->{require(write("DELETE FROM menu_item WHERE item_id=? AND NOT EXISTS (SELECT 1 FROM order_item WHERE item_id=?)",item,item)==1,"Food is missing or used by an order. Mark it unavailable instead.");return null;});
     }

@@ -1,4 +1,4 @@
-# Food Delivery System: the complete beginner's guide
+# Savour: the complete beginner's guide
 
 Read sections 1–5 first to understand the idea. Then follow the example order in section 6. The later sections explain the database, code and presentation.
 

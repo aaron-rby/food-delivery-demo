@@ -1,4 +1,4 @@
-# Food Delivery System
+# Savour
 
 BACSE202 Database Systems course project. A simple black-and-white browser application backed by Java and Oracle JDBC.
 
